@@ -43,25 +43,17 @@
  *  work.
  */
 
-#include "d2glide_fix_corner_text_patch.hpp"
+#ifndef SGD2FDF_PATCHES_REQUIRED_D2GLIDE_FIX_CORNER_TEXT_PATCH_D2GLIDE_FIX_CORNER_TEXT_PATCH_1_00_HPP_
+#define SGD2FDF_PATCHES_REQUIRED_D2GLIDE_FIX_CORNER_TEXT_PATCH_D2GLIDE_FIX_CORNER_TEXT_PATCH_1_00_HPP_
 
-#include "d2glide_fix_corner_text_patch_1_00.hpp"
-#include "d2glide_fix_corner_text_patch_1_09d.hpp"
+#include <vector>
+
+#include <sgd2mapi.hpp>
 
 namespace sgd2fdf::patches {
 
-std::vector<mapi::GamePatch> Make_D2Glide_FixCornerTextPatch() {
-  d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
+std::vector<mapi::GamePatch> Make_D2Glide_FixCornerTextPatch_1_00();
 
-  switch (running_game_version_id) {
-    case d2::GameVersion::k1_00: {
-      return Make_D2Glide_FixCornerTextPatch_1_00();
-    }
+} // namespace SGD2FDF::patches
 
-    case d2::GameVersion::k1_09D: {
-      return Make_D2Glide_FixCornerTextPatch_1_09D();
-    }
-  }
-}
-
-} // namespace sgd2fdf::patches
+#endif // SGD2FDF_PATCHES_REQUIRED_D2GLIDE_FIX_CORNER_TEXT_PATCH_D2GLIDE_FIX_CORNER_TEXT_PATCH_1_00_HPP_
