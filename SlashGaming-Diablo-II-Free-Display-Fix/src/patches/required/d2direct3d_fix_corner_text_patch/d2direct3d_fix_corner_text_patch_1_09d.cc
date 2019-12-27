@@ -75,7 +75,7 @@ __declspec(naked) void __cdecl InterceptionFunc_02() {
   ASM_X86(mov ebp, esp);
 
   // Original code.
-  ASM_X86(mov dword ptr [esp + 34], edi);
+  ASM_X86(mov dword ptr [esp + 0x34], edi);
 
   ASM_X86(push ecx);
   ASM_X86(push edx);
