@@ -43,53 +43,17 @@
  *  work.
  */
 
-#include "required_patches.hpp"
+#ifndef SGD2FDF_PATCHES_REQUIRED_D2DIRECT3D_FIX_DISPLAY_MODE_COLOR_BITS_PATCH_D2DIRECT3D_FIX_DISPLAY_MODE_COLOR_BITS_PATCH_1_09D_HPP_
+#define SGD2FDF_PATCHES_REQUIRED_D2DIRECT3D_FIX_DISPLAY_MODE_COLOR_BITS_PATCH_D2DIRECT3D_FIX_DISPLAY_MODE_COLOR_BITS_PATCH_1_09D_HPP_
 
-#include <algorithm>
+#include <vector>
 
-#include "d2ddraw_fix_corner_text_patch/d2ddraw_fix_corner_text_patch.hpp"
-#include "d2direct3d_fix_corner_text_patch/d2direct3d_fix_corner_text_patch.hpp"
-#include "d2direct3d_fix_display_mode_color_bits_patch/d2direct3d_fix_display_mode_color_bits_patch.hpp"
-#include "d2glide_fix_corner_text_patch/d2glide_fix_corner_text_patch.hpp"
+#include <sgd2mapi.hpp>
 
 namespace sgd2fdf::patches {
 
-std::vector<mapi::GamePatch> MakeRequiredPatches() {
-  std::vector<mapi::GamePatch> game_patches;
+std::vector<mapi::GamePatch> Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_09D();
 
-  std::vector d2ddraw_fix_corner_text_patch =
-      Make_D2DDraw_FixCornerTextPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(d2ddraw_fix_corner_text_patch.begin()),
-      std::make_move_iterator(d2ddraw_fix_corner_text_patch.end())
-  );
+} // namespace SGD2FDF::patches
 
-  std::vector d2direct3d_fix_corner_text_patch =
-      Make_D2Direct3D_FixCornerTextPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(d2direct3d_fix_corner_text_patch.begin()),
-      std::make_move_iterator(d2direct3d_fix_corner_text_patch.end())
-  );
-
-  std::vector d2direct3d_fix_display_mode_color_bits_patch =
-      Make_D2Direct3D_FixDisplayModeColorBitsPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(d2direct3d_fix_display_mode_color_bits_patch.begin()),
-      std::make_move_iterator(d2direct3d_fix_display_mode_color_bits_patch.end())
-  );
-
-  std::vector d2glide_fix_corner_text_patch =
-      Make_D2Glide_FixCornerTextPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(d2glide_fix_corner_text_patch.begin()),
-      std::make_move_iterator(d2glide_fix_corner_text_patch.end())
-  );
-
-  return game_patches;
-}
-
-} // namespace sgd2fdf::patches
+#endif // SGD2FDF_PATCHES_REQUIRED_D2DIRECT3D_FIX_DISPLAY_MODE_COLOR_BITS_PATCH_D2DIRECT3D_FIX_DISPLAY_MODE_COLOR_BITS_PATCH_1_09D_HPP_
