@@ -43,44 +43,18 @@
  *  work.
  */
 
-#include "required_patches.hpp"
-
-#include <algorithm>
-
-#include "d2ddraw_fix_corner_text_patch/d2ddraw_fix_corner_text_patch.hpp"
-#include "d2direct3d_fix_corner_text_patch/d2direct3d_fix_corner_text_patch.hpp"
-#include "d2glide_fix_corner_text_patch/d2glide_fix_corner_text_patch.hpp"
+#include "d2direct3d_fix_corner_text.hpp"
 
 namespace sgd2fwrr::patches {
 
-std::vector<mapi::GamePatch> MakeRequiredPatches() {
-  std::vector<mapi::GamePatch> game_patches;
+HDC __cdecl SGD2FWRR_D2Direct3D_CreateCompatibleDC() {
+  return CreateCompatibleDC(nullptr);
+}
 
-  std::vector d2ddraw_fix_corner_text_patch =
-      Make_D2DDraw_FixCornerTextPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(d2ddraw_fix_corner_text_patch.begin()),
-      std::make_move_iterator(d2ddraw_fix_corner_text_patch.end())
-  );
-
-  std::vector d2direct3d_fix_corner_text_patch =
-      Make_D2Direct3D_FixCornerTextPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(d2direct3d_fix_corner_text_patch.begin()),
-      std::make_move_iterator(d2direct3d_fix_corner_text_patch.end())
-  );
-
-  std::vector d2glide_fix_corner_text_patch =
-      Make_D2Glide_FixCornerTextPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(d2glide_fix_corner_text_patch.begin()),
-      std::make_move_iterator(d2glide_fix_corner_text_patch.end())
-  );
-
-  return game_patches;
+HBITMAP __cdecl SGD2FWRR_D2Direct3D_CreateCompatibleBitmap(
+    HDC hdc
+) {
+  return CreateCompatibleBitmap(hdc, 8, 16);
 }
 
 } // namespace sgd2fwrr::patches
