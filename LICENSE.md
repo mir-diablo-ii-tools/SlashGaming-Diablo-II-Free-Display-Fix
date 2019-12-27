@@ -1,4 +1,4 @@
-# SlashGaming Diablo II Window ReResizer
+# SlashGaming Diablo II Free Display Fix
 Copyright (C) 2019  Mir Drualga
 
 This program is free software: you can redistribute it and/or modify
