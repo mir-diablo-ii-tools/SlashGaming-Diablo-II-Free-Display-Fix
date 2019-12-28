@@ -65,10 +65,12 @@ std::vector<mapi::GamePatch> Make_D2DDraw_FixCornerTextPatch() {
     case d2::GameVersion::k1_05:
     case d2::GameVersion::k1_05B:
     case d2::GameVersion::k1_06:
-    case d2::GameVersion::k1_06B: {
+    case d2::GameVersion::k1_06B:
+    case d2::GameVersion::k1_07Beta: {
       return Make_D2DDraw_FixCornerTextPatch_1_04B();
     }
 
+    case d2::GameVersion::k1_07:
     case d2::GameVersion::k1_09D: {
       return Make_D2DDraw_FixCornerTextPatch_1_09D();
     }
