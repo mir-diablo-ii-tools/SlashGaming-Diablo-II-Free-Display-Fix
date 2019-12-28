@@ -104,7 +104,8 @@ std::vector<mapi::GamePatch> Make_D2Direct3D_FixDisplayModeColorBitsPatch() {
       return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_11B();
     }
 
-    case d2::GameVersion::k1_12A: {
+    case d2::GameVersion::k1_12A:
+    case d2::GameVersion::k1_13ABeta: {
       return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_12A();
     }
   }
