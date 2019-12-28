@@ -43,30 +43,17 @@
  *  work.
  */
 
-#include "d2direct3d_fix_display_mode_color_bits_patch.hpp"
+#ifndef SGD2FDF_PATCHES_REQUIRED_D2GLIDE_FIX_CORNER_TEXT_PATCH_D2GLIDE_FIX_CORNER_TEXT_PATCH_1_03_HPP_
+#define SGD2FDF_PATCHES_REQUIRED_D2GLIDE_FIX_CORNER_TEXT_PATCH_D2GLIDE_FIX_CORNER_TEXT_PATCH_1_03_HPP_
 
-#include "d2direct3d_fix_display_mode_color_bits_patch_1_00.hpp"
-#include "d2direct3d_fix_display_mode_color_bits_patch_1_03.hpp"
-#include "d2direct3d_fix_display_mode_color_bits_patch_1_09d.hpp"
+#include <vector>
+
+#include <sgd2mapi.hpp>
 
 namespace sgd2fdf::patches {
 
-std::vector<mapi::GamePatch> Make_D2Direct3D_FixDisplayModeColorBitsPatch() {
-  d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
+std::vector<mapi::GamePatch> Make_D2Glide_FixCornerTextPatch_1_03();
 
-  switch (running_game_version_id) {
-    case d2::GameVersion::k1_00: {
-      return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_00();
-    }
+} // namespace SGD2FDF::patches
 
-    case d2::GameVersion::k1_03: {
-      return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_03();
-    }
-
-    case d2::GameVersion::k1_09D: {
-      return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_09D();
-    }
-  }
-}
-
-} // namespace sgd2fdf::patches
+#endif // SGD2FDF_PATCHES_REQUIRED_D2GLIDE_FIX_CORNER_TEXT_PATCH_D2GLIDE_FIX_CORNER_TEXT_PATCH_1_03_HPP_
