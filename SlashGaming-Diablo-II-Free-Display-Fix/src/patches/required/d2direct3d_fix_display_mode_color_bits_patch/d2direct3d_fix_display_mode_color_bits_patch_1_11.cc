@@ -43,65 +43,37 @@
  *  work.
  */
 
-#include "d2glide_fix_corner_text_patch.hpp"
+#include "d2direct3d_fix_display_mode_color_bits_patch_1_11.hpp"
 
-#include "d2glide_fix_corner_text_patch_1_00.hpp"
-#include "d2glide_fix_corner_text_patch_1_02.hpp"
-#include "d2glide_fix_corner_text_patch_1_03.hpp"
-#include "d2glide_fix_corner_text_patch_1_04b.hpp"
-#include "d2glide_fix_corner_text_patch_1_07_beta.hpp"
-#include "d2glide_fix_corner_text_patch_1_09d.hpp"
-#include "d2glide_fix_corner_text_patch_1_10_beta.hpp"
-#include "d2glide_fix_corner_text_patch_1_11.hpp"
+#include <cstdint>
+
+#include "../../../asm_x86_macro.h"
 
 namespace sgd2fdf::patches {
+namespace {
 
-std::vector<mapi::GamePatch> Make_D2Glide_FixCornerTextPatch() {
-  d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
+static constexpr std::uint8_t patch_buffer_01[] = { 32 };
 
-  switch (running_game_version_id) {
-    case d2::GameVersion::k1_00: {
-      return Make_D2Glide_FixCornerTextPatch_1_00();
-    }
+} // namespace
 
-    case d2::GameVersion::k1_02: {
-      return Make_D2Glide_FixCornerTextPatch_1_02();
-    }
+std::vector<mapi::GamePatch> Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_11() {
+  std::vector<mapi::GamePatch> patches;
 
-    case d2::GameVersion::k1_03: {
-      return Make_D2Glide_FixCornerTextPatch_1_03();
-    }
+  // Change color bits from 16 bits to 32 bits.
+  mapi::GameAddress game_address_01 = mapi::GameAddress::FromOffset(
+      mapi::DefaultLibrary::kD2Direct3D,
+      0x8F9E
+  );
 
-    case d2::GameVersion::k1_04B_C:
-    case d2::GameVersion::k1_05:
-    case d2::GameVersion::k1_05B:
-    case d2::GameVersion::k1_06:
-    case d2::GameVersion::k1_06B: {
-      return Make_D2Glide_FixCornerTextPatch_1_04B();
-    }
+  patches.push_back(
+      mapi::GamePatch::MakeGameBufferPatch(
+          std::move(game_address_01),
+          patch_buffer_01,
+          sizeof(patch_buffer_01)
+      )
+  );
 
-    case d2::GameVersion::k1_07Beta: {
-      return Make_D2Glide_FixCornerTextPatch_1_07Beta();
-    }
-
-    case d2::GameVersion::k1_07:
-    case d2::GameVersion::k1_08:
-    case d2::GameVersion::k1_09:
-    case d2::GameVersion::k1_09B:
-    case d2::GameVersion::k1_09D: {
-      return Make_D2Glide_FixCornerTextPatch_1_09D();
-    }
-
-    case d2::GameVersion::k1_10Beta:
-    case d2::GameVersion::k1_10SBeta:
-    case d2::GameVersion::k1_10: {
-      return Make_D2Glide_FixCornerTextPatch_1_10Beta();
-    }
-
-    case d2::GameVersion::k1_11: {
-      return Make_D2Glide_FixCornerTextPatch_1_11();
-    }
-  }
+  return patches;
 }
 
 } // namespace sgd2fdf::patches

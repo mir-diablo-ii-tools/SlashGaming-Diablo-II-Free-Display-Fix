@@ -50,6 +50,7 @@
 #include "d2ddraw_fix_corner_text_patch_1_09d.hpp"
 #include "d2ddraw_fix_corner_text_patch_1_10.hpp"
 #include "d2ddraw_fix_corner_text_patch_1_10_beta.hpp"
+#include "d2ddraw_fix_corner_text_patch_1_11.hpp"
 
 namespace sgd2fdf::patches {
 
@@ -87,6 +88,10 @@ std::vector<mapi::GamePatch> Make_D2DDraw_FixCornerTextPatch() {
 
     case d2::GameVersion::k1_10: {
       return Make_D2DDraw_FixCornerTextPatch_1_10();
+    }
+
+    case d2::GameVersion::k1_11: {
+      return Make_D2DDraw_FixCornerTextPatch_1_11();
     }
   }
 }

@@ -43,65 +43,17 @@
  *  work.
  */
 
-#include "d2glide_fix_corner_text_patch.hpp"
+#ifndef SGD2FDF_PATCHES_REQUIRED_D2GLIDE_FIX_CORNER_TEXT_PATCH_D2GLIDE_FIX_CORNER_TEXT_PATCH_1_11_HPP_
+#define SGD2FDF_PATCHES_REQUIRED_D2GLIDE_FIX_CORNER_TEXT_PATCH_D2GLIDE_FIX_CORNER_TEXT_PATCH_1_11_HPP_
 
-#include "d2glide_fix_corner_text_patch_1_00.hpp"
-#include "d2glide_fix_corner_text_patch_1_02.hpp"
-#include "d2glide_fix_corner_text_patch_1_03.hpp"
-#include "d2glide_fix_corner_text_patch_1_04b.hpp"
-#include "d2glide_fix_corner_text_patch_1_07_beta.hpp"
-#include "d2glide_fix_corner_text_patch_1_09d.hpp"
-#include "d2glide_fix_corner_text_patch_1_10_beta.hpp"
-#include "d2glide_fix_corner_text_patch_1_11.hpp"
+#include <vector>
+
+#include <sgd2mapi.hpp>
 
 namespace sgd2fdf::patches {
 
-std::vector<mapi::GamePatch> Make_D2Glide_FixCornerTextPatch() {
-  d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
+std::vector<mapi::GamePatch> Make_D2Glide_FixCornerTextPatch_1_11();
 
-  switch (running_game_version_id) {
-    case d2::GameVersion::k1_00: {
-      return Make_D2Glide_FixCornerTextPatch_1_00();
-    }
+} // namespace SGD2FDF::patches
 
-    case d2::GameVersion::k1_02: {
-      return Make_D2Glide_FixCornerTextPatch_1_02();
-    }
-
-    case d2::GameVersion::k1_03: {
-      return Make_D2Glide_FixCornerTextPatch_1_03();
-    }
-
-    case d2::GameVersion::k1_04B_C:
-    case d2::GameVersion::k1_05:
-    case d2::GameVersion::k1_05B:
-    case d2::GameVersion::k1_06:
-    case d2::GameVersion::k1_06B: {
-      return Make_D2Glide_FixCornerTextPatch_1_04B();
-    }
-
-    case d2::GameVersion::k1_07Beta: {
-      return Make_D2Glide_FixCornerTextPatch_1_07Beta();
-    }
-
-    case d2::GameVersion::k1_07:
-    case d2::GameVersion::k1_08:
-    case d2::GameVersion::k1_09:
-    case d2::GameVersion::k1_09B:
-    case d2::GameVersion::k1_09D: {
-      return Make_D2Glide_FixCornerTextPatch_1_09D();
-    }
-
-    case d2::GameVersion::k1_10Beta:
-    case d2::GameVersion::k1_10SBeta:
-    case d2::GameVersion::k1_10: {
-      return Make_D2Glide_FixCornerTextPatch_1_10Beta();
-    }
-
-    case d2::GameVersion::k1_11: {
-      return Make_D2Glide_FixCornerTextPatch_1_11();
-    }
-  }
-}
-
-} // namespace sgd2fdf::patches
+#endif // SGD2FDF_PATCHES_REQUIRED_D2GLIDE_FIX_CORNER_TEXT_PATCH_D2GLIDE_FIX_CORNER_TEXT_PATCH_1_11_HPP_
