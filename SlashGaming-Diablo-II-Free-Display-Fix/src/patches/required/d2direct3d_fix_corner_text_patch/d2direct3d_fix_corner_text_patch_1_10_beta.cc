@@ -43,50 +43,90 @@
  *  work.
  */
 
-#include "d2direct3d_fix_display_mode_color_bits_patch.hpp"
+#include "d2direct3d_fix_corner_text_patch_1_10_beta.hpp"
 
-#include "d2direct3d_fix_display_mode_color_bits_patch_1_00.hpp"
-#include "d2direct3d_fix_display_mode_color_bits_patch_1_03.hpp"
-#include "d2direct3d_fix_display_mode_color_bits_patch_1_04b.hpp"
-#include "d2direct3d_fix_display_mode_color_bits_patch_1_09d.hpp"
-#include "d2direct3d_fix_display_mode_color_bits_patch_1_10_beta.hpp"
+#include "../../../asm_x86_macro.h"
+#include "d2direct3d_fix_corner_text.hpp"
 
 namespace sgd2fdf::patches {
+namespace {
 
-std::vector<mapi::GamePatch> Make_D2Direct3D_FixDisplayModeColorBitsPatch() {
-  d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
+__declspec(naked) void __cdecl InterceptionFunc_01() {
+  ASM_X86(push ebp);
+  ASM_X86(mov ebp, esp);
 
-  switch (running_game_version_id) {
-    case d2::GameVersion::k1_00:
-    case d2::GameVersion::k1_02: {
-      return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_00();
-    }
+  // Original code.
+  ASM_X86(mov dword ptr [esp + 0x2C], ecx);
 
-    case d2::GameVersion::k1_03: {
-      return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_03();
-    }
+  ASM_X86(push ecx);
+  ASM_X86(push edx);
 
-    case d2::GameVersion::k1_04B_C:
-    case d2::GameVersion::k1_05:
-    case d2::GameVersion::k1_05B:
-    case d2::GameVersion::k1_06:
-    case d2::GameVersion::k1_06B: {
-      return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_04B();
-    }
+  ASM_X86(call ASM_X86_FUNC(SGD2FDF_D2Direct3D_CreateCompatibleDC));
 
-    case d2::GameVersion::k1_07Beta:
-    case d2::GameVersion::k1_07:
-    case d2::GameVersion::k1_08:
-    case d2::GameVersion::k1_09:
-    case d2::GameVersion::k1_09B:
-    case d2::GameVersion::k1_09D: {
-      return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_09D();
-    }
+  ASM_X86(pop edx);
+  ASM_X86(pop ecx);
 
-    case d2::GameVersion::k1_10Beta: {
-      return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_10Beta();
-    }
-  }
+  ASM_X86(leave);
+  ASM_X86(ret);
+}
+
+__declspec(naked) void __cdecl InterceptionFunc_02() {
+  ASM_X86(push ebp);
+  ASM_X86(mov ebp, esp);
+
+  // Original code.
+  ASM_X86(mov dword ptr [esp + 0x34], edi);
+
+  ASM_X86(push ecx);
+  ASM_X86(push edx);
+
+  ASM_X86(push esi);
+  ASM_X86(call ASM_X86_FUNC(SGD2FDF_D2Direct3D_CreateCompatibleBitmap));
+  ASM_X86(add esp, 4)
+
+  ASM_X86(pop edx);
+  ASM_X86(pop ecx);
+
+  ASM_X86(leave);
+  ASM_X86(ret);
+}
+
+} // namespace
+
+std::vector<mapi::GamePatch> Make_D2Direct3D_FixCornerTextPatch_1_10Beta() {
+  std::vector<mapi::GamePatch> patches;
+
+  // Fix device context creation.
+  mapi::GameAddress game_address_01 = mapi::GameAddress::FromOffset(
+      mapi::DefaultLibrary::kD2Direct3D,
+      0x4F7C
+  );
+
+  patches.push_back(
+      mapi::GamePatch::MakeGameBranchPatch(
+          std::move(game_address_01),
+          mapi::BranchType::kCall,
+          InterceptionFunc_01,
+          0x4F8E - 0x4F7C
+      )
+  );
+
+  // Fix bitmap creation.
+  mapi::GameAddress game_address_02 = mapi::GameAddress::FromOffset(
+      mapi::DefaultLibrary::kD2Direct3D,
+      0x4FB0
+  );
+
+  patches.push_back(
+      mapi::GamePatch::MakeGameBranchPatch(
+          std::move(game_address_02),
+          mapi::BranchType::kCall,
+          InterceptionFunc_02,
+          0x4FC3 - 0x4FB0
+      )
+  );
+
+  return patches;
 }
 
 } // namespace sgd2fdf::patches

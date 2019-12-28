@@ -43,50 +43,17 @@
  *  work.
  */
 
-#include "d2direct3d_fix_display_mode_color_bits_patch.hpp"
+#ifndef SGD2FDF_PATCHES_REQUIRED_D2DIRECT3D_FIX_CORNER_TEXT_PATCH_D2DIRECT3D_FIX_CORNER_TEXT_PATCH_1_10_BETA_HPP_
+#define SGD2FDF_PATCHES_REQUIRED_D2DIRECT3D_FIX_CORNER_TEXT_PATCH_D2DIRECT3D_FIX_CORNER_TEXT_PATCH_1_10_BETA_HPP_
 
-#include "d2direct3d_fix_display_mode_color_bits_patch_1_00.hpp"
-#include "d2direct3d_fix_display_mode_color_bits_patch_1_03.hpp"
-#include "d2direct3d_fix_display_mode_color_bits_patch_1_04b.hpp"
-#include "d2direct3d_fix_display_mode_color_bits_patch_1_09d.hpp"
-#include "d2direct3d_fix_display_mode_color_bits_patch_1_10_beta.hpp"
+#include <vector>
+
+#include <sgd2mapi.hpp>
 
 namespace sgd2fdf::patches {
 
-std::vector<mapi::GamePatch> Make_D2Direct3D_FixDisplayModeColorBitsPatch() {
-  d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
+std::vector<mapi::GamePatch> Make_D2Direct3D_FixCornerTextPatch_1_10Beta();
 
-  switch (running_game_version_id) {
-    case d2::GameVersion::k1_00:
-    case d2::GameVersion::k1_02: {
-      return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_00();
-    }
+} // namespace SGD2FDF::patches
 
-    case d2::GameVersion::k1_03: {
-      return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_03();
-    }
-
-    case d2::GameVersion::k1_04B_C:
-    case d2::GameVersion::k1_05:
-    case d2::GameVersion::k1_05B:
-    case d2::GameVersion::k1_06:
-    case d2::GameVersion::k1_06B: {
-      return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_04B();
-    }
-
-    case d2::GameVersion::k1_07Beta:
-    case d2::GameVersion::k1_07:
-    case d2::GameVersion::k1_08:
-    case d2::GameVersion::k1_09:
-    case d2::GameVersion::k1_09B:
-    case d2::GameVersion::k1_09D: {
-      return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_09D();
-    }
-
-    case d2::GameVersion::k1_10Beta: {
-      return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_10Beta();
-    }
-  }
-}
-
-} // namespace sgd2fdf::patches
+#endif // SGD2FDF_PATCHES_REQUIRED_D2DIRECT3D_FIX_CORNER_TEXT_PATCH_D2DIRECT3D_FIX_CORNER_TEXT_PATCH_1_10_BETA_HPP_
