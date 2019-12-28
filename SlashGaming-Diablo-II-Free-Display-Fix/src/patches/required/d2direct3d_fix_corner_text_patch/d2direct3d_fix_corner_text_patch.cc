@@ -71,6 +71,9 @@ std::vector<mapi::GamePatch> Make_D2Direct3D_FixCornerTextPatch() {
 
     case d2::GameVersion::k1_07Beta:
     case d2::GameVersion::k1_07:
+    case d2::GameVersion::k1_08:
+    case d2::GameVersion::k1_09:
+    case d2::GameVersion::k1_09B:
     case d2::GameVersion::k1_09D: {
       return Make_D2Direct3D_FixCornerTextPatch_1_09D();
     }
