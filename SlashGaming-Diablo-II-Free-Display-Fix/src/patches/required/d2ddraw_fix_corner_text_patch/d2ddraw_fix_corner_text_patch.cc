@@ -45,6 +45,7 @@
 
 #include "d2ddraw_fix_corner_text_patch.hpp"
 
+#include "d2ddraw_fix_corner_text_patch_1_00.hpp"
 #include "d2ddraw_fix_corner_text_patch_1_09d.hpp"
 
 namespace sgd2fdf::patches {
@@ -53,6 +54,10 @@ std::vector<mapi::GamePatch> Make_D2DDraw_FixCornerTextPatch() {
   d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
 
   switch (running_game_version_id) {
+    case d2::GameVersion::k1_00: {
+      return Make_D2DDraw_FixCornerTextPatch_1_00();
+    }
+
     case d2::GameVersion::k1_09D: {
       return Make_D2DDraw_FixCornerTextPatch_1_09D();
     }

@@ -43,25 +43,39 @@
  *  work.
  */
 
-#include "d2direct3d_fix_corner_text_patch.hpp"
+#include "d2direct3d_fix_display_mode_color_bits_patch_1_00.hpp"
 
-#include "d2direct3d_fix_corner_text_patch_1_00.hpp"
-#include "d2direct3d_fix_corner_text_patch_1_09d.hpp"
+#include <cstdint>
+
+#include "../../../asm_x86_macro.h"
 
 namespace sgd2fdf::patches {
+namespace {
 
-std::vector<mapi::GamePatch> Make_D2Direct3D_FixCornerTextPatch() {
-  d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
+static constexpr std::uint8_t patch_buffer_01[] = { 32 };
 
-  switch (running_game_version_id) {
-    case d2::GameVersion::k1_00: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_00();
-    }
+} // namespace
 
-    case d2::GameVersion::k1_09D: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_09D();
-    }
-  }
+std::vector<mapi::GamePatch> Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_00() {
+  std::vector<mapi::GamePatch> patches;
+
+  // Change color bits from 16 bits to 32 bits.
+  /* TODO (Mir Durlaga): Disabled because it crashes the game when main menu loads.
+  mapi::GameAddress game_address_01 = mapi::GameAddress::FromOffset(
+      mapi::DefaultLibrary::kD2Direct3D,
+      0x2A3E
+  );
+
+  patches.push_back(
+      mapi::GamePatch::MakeGameBufferPatch(
+          std::move(game_address_01),
+          patch_buffer_01,
+          sizeof(patch_buffer_01)
+      )
+  );
+  */
+
+  return patches;
 }
 
 } // namespace sgd2fdf::patches
