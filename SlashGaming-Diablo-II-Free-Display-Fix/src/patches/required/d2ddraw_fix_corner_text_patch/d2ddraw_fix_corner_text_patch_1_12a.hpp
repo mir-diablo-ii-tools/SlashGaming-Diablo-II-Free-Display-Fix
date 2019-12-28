@@ -43,67 +43,17 @@
  *  work.
  */
 
-#include "d2ddraw_fix_corner_text_patch.hpp"
+#ifndef SGD2FDF_PATCHES_REQUIRED_D2DDRAW_FIX_CORNER_TEXT_PATCH_D2DDRAW_FIX_CORNER_TEXT_PATCH_1_12A_HPP_
+#define SGD2FDF_PATCHES_REQUIRED_D2DDRAW_FIX_CORNER_TEXT_PATCH_D2DDRAW_FIX_CORNER_TEXT_PATCH_1_12A_HPP_
 
-#include "d2ddraw_fix_corner_text_patch_1_00.hpp"
-#include "d2ddraw_fix_corner_text_patch_1_04b.hpp"
-#include "d2ddraw_fix_corner_text_patch_1_09d.hpp"
-#include "d2ddraw_fix_corner_text_patch_1_10.hpp"
-#include "d2ddraw_fix_corner_text_patch_1_10_beta.hpp"
-#include "d2ddraw_fix_corner_text_patch_1_11.hpp"
-#include "d2ddraw_fix_corner_text_patch_1_11b.hpp"
-#include "d2ddraw_fix_corner_text_patch_1_12a.hpp"
+#include <vector>
+
+#include <sgd2mapi.hpp>
 
 namespace sgd2fdf::patches {
 
-std::vector<mapi::GamePatch> Make_D2DDraw_FixCornerTextPatch() {
-  d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
+std::vector<mapi::GamePatch> Make_D2DDraw_FixCornerTextPatch_1_12A();
 
-  switch (running_game_version_id) {
-    case d2::GameVersion::k1_00:
-    case d2::GameVersion::k1_02:
-    case d2::GameVersion::k1_03: {
-      return Make_D2DDraw_FixCornerTextPatch_1_00();
-    }
+} // namespace SGD2FDF::patches
 
-    case d2::GameVersion::k1_04B_C:
-    case d2::GameVersion::k1_05:
-    case d2::GameVersion::k1_05B:
-    case d2::GameVersion::k1_06:
-    case d2::GameVersion::k1_06B:
-    case d2::GameVersion::k1_07Beta: {
-      return Make_D2DDraw_FixCornerTextPatch_1_04B();
-    }
-
-    case d2::GameVersion::k1_07:
-    case d2::GameVersion::k1_08:
-    case d2::GameVersion::k1_09:
-    case d2::GameVersion::k1_09B:
-    case d2::GameVersion::k1_09D: {
-      return Make_D2DDraw_FixCornerTextPatch_1_09D();
-    }
-
-    case d2::GameVersion::k1_10Beta:
-    case d2::GameVersion::k1_10SBeta: {
-      return Make_D2DDraw_FixCornerTextPatch_1_10Beta();
-    }
-
-    case d2::GameVersion::k1_10: {
-      return Make_D2DDraw_FixCornerTextPatch_1_10();
-    }
-
-    case d2::GameVersion::k1_11: {
-      return Make_D2DDraw_FixCornerTextPatch_1_11();
-    }
-
-    case d2::GameVersion::k1_11B: {
-      return Make_D2DDraw_FixCornerTextPatch_1_11B();
-    }
-
-    case d2::GameVersion::k1_12A: {
-      return Make_D2DDraw_FixCornerTextPatch_1_12A();
-    }
-  }
-}
-
-} // namespace sgd2fdf::patches
+#endif // SGD2FDF_PATCHES_REQUIRED_D2DDRAW_FIX_CORNER_TEXT_PATCH_D2DDRAW_FIX_CORNER_TEXT_PATCH_1_12A_HPP_
