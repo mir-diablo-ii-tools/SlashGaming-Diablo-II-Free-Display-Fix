@@ -54,6 +54,7 @@
 #include "d2direct3d_fix_display_mode_color_bits_patch_1_11.hpp"
 #include "d2direct3d_fix_display_mode_color_bits_patch_1_11b.hpp"
 #include "d2direct3d_fix_display_mode_color_bits_patch_1_12a.hpp"
+#include "d2direct3d_fix_display_mode_color_bits_patch_1_13c.hpp"
 
 namespace sgd2fdf::patches {
 
@@ -107,6 +108,10 @@ std::vector<mapi::GamePatch> Make_D2Direct3D_FixDisplayModeColorBitsPatch() {
     case d2::GameVersion::k1_12A:
     case d2::GameVersion::k1_13ABeta: {
       return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_12A();
+    }
+
+    case d2::GameVersion::k1_13C: {
+      return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_13C();
     }
   }
 }

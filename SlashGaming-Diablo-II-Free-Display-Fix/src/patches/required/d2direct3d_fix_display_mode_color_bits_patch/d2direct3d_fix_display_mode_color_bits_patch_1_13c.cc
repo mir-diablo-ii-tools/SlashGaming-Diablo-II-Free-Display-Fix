@@ -43,77 +43,37 @@
  *  work.
  */
 
-#include "d2direct3d_fix_corner_text_patch.hpp"
+#include "d2direct3d_fix_display_mode_color_bits_patch_1_13c.hpp"
 
-#include "d2direct3d_fix_corner_text_patch_1_00.hpp"
-#include "d2direct3d_fix_corner_text_patch_1_04b.hpp"
-#include "d2direct3d_fix_corner_text_patch_1_09d.hpp"
-#include "d2direct3d_fix_corner_text_patch_1_10.hpp"
-#include "d2direct3d_fix_corner_text_patch_1_10_beta.hpp"
-#include "d2direct3d_fix_corner_text_patch_1_11.hpp"
-#include "d2direct3d_fix_corner_text_patch_1_11b.hpp"
-#include "d2direct3d_fix_corner_text_patch_1_12a.hpp"
-#include "d2direct3d_fix_corner_text_patch_1_13a_beta.hpp"
-#include "d2direct3d_fix_corner_text_patch_1_13c.hpp"
+#include <cstdint>
+
+#include "../../../asm_x86_macro.h"
 
 namespace sgd2fdf::patches {
+namespace {
 
-std::vector<mapi::GamePatch> Make_D2Direct3D_FixCornerTextPatch() {
-  d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
+static constexpr std::uint8_t patch_buffer_01[] = { 32 };
 
-  switch (running_game_version_id) {
-    case d2::GameVersion::k1_00:
-    case d2::GameVersion::k1_02:
-    case d2::GameVersion::k1_03: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_00();
-    }
+} // namespace
 
-    case d2::GameVersion::k1_04B_C:
-    case d2::GameVersion::k1_05:
-    case d2::GameVersion::k1_05B:
-    case d2::GameVersion::k1_06:
-    case d2::GameVersion::k1_06B: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_04B();
-    }
+std::vector<mapi::GamePatch> Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_13C() {
+  std::vector<mapi::GamePatch> patches;
 
-    case d2::GameVersion::k1_07Beta:
-    case d2::GameVersion::k1_07:
-    case d2::GameVersion::k1_08:
-    case d2::GameVersion::k1_09:
-    case d2::GameVersion::k1_09B:
-    case d2::GameVersion::k1_09D: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_09D();
-    }
+  // Change color bits from 16 bits to 32 bits.
+  mapi::GameAddress game_address_01 = mapi::GameAddress::FromOffset(
+      mapi::DefaultLibrary::kD2Direct3D,
+      0xBA2E
+  );
 
-    case d2::GameVersion::k1_10Beta:
-    case d2::GameVersion::k1_10SBeta: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_10Beta();
-    }
+  patches.push_back(
+      mapi::GamePatch::MakeGameBufferPatch(
+          std::move(game_address_01),
+          patch_buffer_01,
+          sizeof(patch_buffer_01)
+      )
+  );
 
-    case d2::GameVersion::k1_10: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_10();
-    }
-
-    case d2::GameVersion::k1_11: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_11();
-    }
-
-    case d2::GameVersion::k1_11B: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_11B();
-    }
-
-    case d2::GameVersion::k1_12A: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_12A();
-    }
-
-    case d2::GameVersion::k1_13ABeta: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_13ABeta();
-    }
-
-    case d2::GameVersion::k1_13C: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_13C();
-    }
-  }
+  return patches;
 }
 
 } // namespace sgd2fdf::patches
