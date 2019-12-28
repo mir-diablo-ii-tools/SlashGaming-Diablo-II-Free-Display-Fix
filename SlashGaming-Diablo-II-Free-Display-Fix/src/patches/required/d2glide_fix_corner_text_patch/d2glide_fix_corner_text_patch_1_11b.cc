@@ -43,62 +43,88 @@
  *  work.
  */
 
-#include "d2ddraw_fix_corner_text_patch.hpp"
+#include "d2glide_fix_corner_text_patch_1_11b.hpp"
 
-#include "d2ddraw_fix_corner_text_patch_1_00.hpp"
-#include "d2ddraw_fix_corner_text_patch_1_04b.hpp"
-#include "d2ddraw_fix_corner_text_patch_1_09d.hpp"
-#include "d2ddraw_fix_corner_text_patch_1_10.hpp"
-#include "d2ddraw_fix_corner_text_patch_1_10_beta.hpp"
-#include "d2ddraw_fix_corner_text_patch_1_11.hpp"
-#include "d2ddraw_fix_corner_text_patch_1_11b.hpp"
+#include "../../../asm_x86_macro.h"
+#include "d2glide_fix_corner_text.hpp"
 
 namespace sgd2fdf::patches {
+namespace {
 
-std::vector<mapi::GamePatch> Make_D2DDraw_FixCornerTextPatch() {
-  d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
+__declspec(naked) void __cdecl InterceptionFunc_01() {
+  ASM_X86(push ebp);
+  ASM_X86(mov ebp, esp);
 
-  switch (running_game_version_id) {
-    case d2::GameVersion::k1_00:
-    case d2::GameVersion::k1_02:
-    case d2::GameVersion::k1_03: {
-      return Make_D2DDraw_FixCornerTextPatch_1_00();
-    }
+  ASM_X86(push ecx);
+  ASM_X86(push edx);
 
-    case d2::GameVersion::k1_04B_C:
-    case d2::GameVersion::k1_05:
-    case d2::GameVersion::k1_05B:
-    case d2::GameVersion::k1_06:
-    case d2::GameVersion::k1_06B:
-    case d2::GameVersion::k1_07Beta: {
-      return Make_D2DDraw_FixCornerTextPatch_1_04B();
-    }
+  ASM_X86(call ASM_X86_FUNC(SGD2FDF_D2Glide_CreateCompatibleDC));
 
-    case d2::GameVersion::k1_07:
-    case d2::GameVersion::k1_08:
-    case d2::GameVersion::k1_09:
-    case d2::GameVersion::k1_09B:
-    case d2::GameVersion::k1_09D: {
-      return Make_D2DDraw_FixCornerTextPatch_1_09D();
-    }
+  ASM_X86(pop edx);
+  ASM_X86(pop ecx);
 
-    case d2::GameVersion::k1_10Beta:
-    case d2::GameVersion::k1_10SBeta: {
-      return Make_D2DDraw_FixCornerTextPatch_1_10Beta();
-    }
+  ASM_X86(leave);
+  ASM_X86(ret);
+}
 
-    case d2::GameVersion::k1_10: {
-      return Make_D2DDraw_FixCornerTextPatch_1_10();
-    }
+__declspec(naked) void __cdecl InterceptionFunc_02() {
+  ASM_X86(push ebp);
+  ASM_X86(mov ebp, esp);
 
-    case d2::GameVersion::k1_11: {
-      return Make_D2DDraw_FixCornerTextPatch_1_11();
-    }
+  // Original code.
+  ASM_X86(mov edi, eax);
+  ASM_X86(mov dword ptr [esp + 0x28], edi);
 
-    case d2::GameVersion::k1_11B: {
-      return Make_D2DDraw_FixCornerTextPatch_1_11B();
-    }
-  }
+  ASM_X86(push ecx);
+  ASM_X86(push edx);
+
+  ASM_X86(push esi);
+  ASM_X86(call ASM_X86_FUNC(SGD2FDF_D2Glide_CreateCompatibleBitmap));
+  ASM_X86(add esp, 4)
+
+  ASM_X86(pop edx);
+  ASM_X86(pop ecx);
+
+  ASM_X86(leave);
+  ASM_X86(ret);
+}
+
+} // namespace
+
+std::vector<mapi::GamePatch> Make_D2Glide_FixCornerTextPatch_1_11B() {
+  std::vector<mapi::GamePatch> patches;
+
+  // Fix device context creation.
+  mapi::GameAddress game_address_01 = mapi::GameAddress::FromOffset(
+      mapi::DefaultLibrary::kD2Glide,
+      0x6149
+  );
+
+  patches.push_back(
+      mapi::GamePatch::MakeGameBranchPatch(
+          std::move(game_address_01),
+          mapi::BranchType::kCall,
+          InterceptionFunc_01,
+          0x6157 - 0x6149
+      )
+  );
+
+  // Fix bitmap creation.
+  mapi::GameAddress game_address_02 = mapi::GameAddress::FromOffset(
+      mapi::DefaultLibrary::kD2Glide,
+      0x6177
+  );
+
+  patches.push_back(
+      mapi::GamePatch::MakeGameBranchPatch(
+          std::move(game_address_02),
+          mapi::BranchType::kCall,
+          InterceptionFunc_02,
+          0x618C - 0x6177
+      )
+  );
+
+  return patches;
 }
 
 } // namespace sgd2fdf::patches
