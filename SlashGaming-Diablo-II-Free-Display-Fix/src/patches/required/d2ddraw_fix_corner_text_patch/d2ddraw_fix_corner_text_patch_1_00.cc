@@ -123,11 +123,6 @@ std::vector<mapi::GamePatch> Make_D2DDraw_FixCornerTextPatch_1_00() {
       )
   );
 
-  mapi::GameAddress game_address_03 = mapi::GameAddress::FromOffset(
-      mapi::DefaultLibrary::kD2DDraw,
-      0x1dac
-  );
-
   return patches;
 }
 

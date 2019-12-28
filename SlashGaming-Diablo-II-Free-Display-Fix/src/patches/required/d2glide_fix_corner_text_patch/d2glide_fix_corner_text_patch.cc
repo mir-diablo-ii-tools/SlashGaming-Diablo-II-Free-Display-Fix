@@ -48,6 +48,7 @@
 #include "d2glide_fix_corner_text_patch_1_00.hpp"
 #include "d2glide_fix_corner_text_patch_1_02.hpp"
 #include "d2glide_fix_corner_text_patch_1_03.hpp"
+#include "d2glide_fix_corner_text_patch_1_04b.hpp"
 #include "d2glide_fix_corner_text_patch_1_09d.hpp"
 
 namespace sgd2fdf::patches {
@@ -66,6 +67,10 @@ std::vector<mapi::GamePatch> Make_D2Glide_FixCornerTextPatch() {
 
     case d2::GameVersion::k1_03: {
       return Make_D2Glide_FixCornerTextPatch_1_03();
+    }
+
+    case d2::GameVersion::k1_04B_C: {
+      return Make_D2Glide_FixCornerTextPatch_1_04B();
     }
 
     case d2::GameVersion::k1_09D: {

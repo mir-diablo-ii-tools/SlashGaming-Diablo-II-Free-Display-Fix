@@ -43,32 +43,90 @@
  *  work.
  */
 
-#include "d2direct3d_fix_corner_text_patch.hpp"
-
-#include "d2direct3d_fix_corner_text_patch_1_00.hpp"
 #include "d2direct3d_fix_corner_text_patch_1_04b.hpp"
-#include "d2direct3d_fix_corner_text_patch_1_09d.hpp"
+
+#include "../../../asm_x86_macro.h"
+#include "d2direct3d_fix_corner_text.hpp"
 
 namespace sgd2fdf::patches {
+namespace {
 
-std::vector<mapi::GamePatch> Make_D2Direct3D_FixCornerTextPatch() {
-  d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
+__declspec(naked) void __cdecl InterceptionFunc_01() {
+  ASM_X86(push ebp);
+  ASM_X86(mov ebp, esp);
 
-  switch (running_game_version_id) {
-    case d2::GameVersion::k1_00:
-    case d2::GameVersion::k1_02:
-    case d2::GameVersion::k1_03: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_00();
-    }
+  // Original code.
+  ASM_X86(mov dword ptr [esp + 0x2C], ecx);
 
-    case d2::GameVersion::k1_04B_C: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_04B();
-    }
+  ASM_X86(push ecx);
+  ASM_X86(push edx);
 
-    case d2::GameVersion::k1_09D: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_09D();
-    }
-  }
+  ASM_X86(call ASM_X86_FUNC(SGD2FDF_D2Direct3D_CreateCompatibleDC));
+
+  ASM_X86(pop edx);
+  ASM_X86(pop ecx);
+
+  ASM_X86(leave);
+  ASM_X86(ret);
+}
+
+__declspec(naked) void __cdecl InterceptionFunc_02() {
+  ASM_X86(push ebp);
+  ASM_X86(mov ebp, esp);
+
+  // Original code.
+  ASM_X86(mov dword ptr [esp + 0x34], edi);
+
+  ASM_X86(push ecx);
+  ASM_X86(push edx);
+
+  ASM_X86(push esi);
+  ASM_X86(call ASM_X86_FUNC(SGD2FDF_D2Direct3D_CreateCompatibleBitmap));
+  ASM_X86(add esp, 4)
+
+  ASM_X86(pop edx);
+  ASM_X86(pop ecx);
+
+  ASM_X86(leave);
+  ASM_X86(ret);
+}
+
+} // namespace
+
+std::vector<mapi::GamePatch> Make_D2Direct3D_FixCornerTextPatch_1_04B() {
+  std::vector<mapi::GamePatch> patches;
+
+  // Fix device context creation.
+  mapi::GameAddress game_address_01 = mapi::GameAddress::FromOffset(
+      mapi::DefaultLibrary::kD2Direct3D,
+      0x501C
+  );
+
+  patches.push_back(
+      mapi::GamePatch::MakeGameBranchPatch(
+          std::move(game_address_01),
+          mapi::BranchType::kCall,
+          InterceptionFunc_01,
+          0x502E - 0x501C
+      )
+  );
+
+  // Fix bitmap creation.
+  mapi::GameAddress game_address_02 = mapi::GameAddress::FromOffset(
+      mapi::DefaultLibrary::kD2Direct3D,
+      0x5050
+  );
+
+  patches.push_back(
+      mapi::GamePatch::MakeGameBranchPatch(
+          std::move(game_address_02),
+          mapi::BranchType::kCall,
+          InterceptionFunc_02,
+          0x5063 - 0x5050
+      )
+  );
+
+  return patches;
 }
 
 } // namespace sgd2fdf::patches

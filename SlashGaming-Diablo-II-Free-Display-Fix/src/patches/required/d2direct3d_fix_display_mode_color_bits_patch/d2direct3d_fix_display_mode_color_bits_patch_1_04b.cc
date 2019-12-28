@@ -43,32 +43,37 @@
  *  work.
  */
 
-#include "d2direct3d_fix_corner_text_patch.hpp"
+#include "d2direct3d_fix_display_mode_color_bits_patch_1_04b.hpp"
 
-#include "d2direct3d_fix_corner_text_patch_1_00.hpp"
-#include "d2direct3d_fix_corner_text_patch_1_04b.hpp"
-#include "d2direct3d_fix_corner_text_patch_1_09d.hpp"
+#include <cstdint>
+
+#include "../../../asm_x86_macro.h"
 
 namespace sgd2fdf::patches {
+namespace {
 
-std::vector<mapi::GamePatch> Make_D2Direct3D_FixCornerTextPatch() {
-  d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
+static constexpr std::uint8_t patch_buffer_01[] = { 32 };
 
-  switch (running_game_version_id) {
-    case d2::GameVersion::k1_00:
-    case d2::GameVersion::k1_02:
-    case d2::GameVersion::k1_03: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_00();
-    }
+} // namespace
 
-    case d2::GameVersion::k1_04B_C: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_04B();
-    }
+std::vector<mapi::GamePatch> Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_04B() {
+  std::vector<mapi::GamePatch> patches;
 
-    case d2::GameVersion::k1_09D: {
-      return Make_D2Direct3D_FixCornerTextPatch_1_09D();
-    }
-  }
+  // Change color bits from 16 bits to 32 bits.
+  mapi::GameAddress game_address_01 = mapi::GameAddress::FromOffset(
+      mapi::DefaultLibrary::kD2Direct3D,
+      0x210E
+  );
+
+  patches.push_back(
+      mapi::GamePatch::MakeGameBufferPatch(
+          std::move(game_address_01),
+          patch_buffer_01,
+          sizeof(patch_buffer_01)
+      )
+  );
+
+  return patches;
 }
 
 } // namespace sgd2fdf::patches
