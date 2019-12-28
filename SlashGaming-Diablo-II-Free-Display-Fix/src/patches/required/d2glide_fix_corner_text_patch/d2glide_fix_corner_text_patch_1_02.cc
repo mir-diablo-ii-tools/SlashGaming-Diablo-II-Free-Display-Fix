@@ -43,10 +43,10 @@
  *  work.
  */
 
-#include "d2direct3d_fix_corner_text_patch_1_03.hpp"
+#include "d2glide_fix_corner_text_patch_1_02.hpp"
 
 #include "../../../asm_x86_macro.h"
-#include "d2direct3d_fix_corner_text.hpp"
+#include "d2glide_fix_corner_text.hpp"
 
 namespace sgd2fdf::patches {
 namespace {
@@ -55,13 +55,10 @@ __declspec(naked) void __cdecl InterceptionFunc_01() {
   ASM_X86(push ebp);
   ASM_X86(mov ebp, esp);
 
-  // Original code.
-  ASM_X86(mov dword ptr [esp + 0x2C], ecx);
-
   ASM_X86(push ecx);
   ASM_X86(push edx);
 
-  ASM_X86(call ASM_X86_FUNC(SGD2FDF_D2Direct3D_CreateCompatibleDC));
+  ASM_X86(call ASM_X86_FUNC(SGD2FDF_D2Glide_CreateCompatibleDC));
 
   ASM_X86(pop edx);
   ASM_X86(pop ecx);
@@ -75,13 +72,13 @@ __declspec(naked) void __cdecl InterceptionFunc_02() {
   ASM_X86(mov ebp, esp);
 
   // Original code.
-  ASM_X86(mov dword ptr [esp + 0x34], edi);
+  ASM_X86(mov dword ptr [esp + 0x28], edi);
 
   ASM_X86(push ecx);
   ASM_X86(push edx);
 
   ASM_X86(push esi);
-  ASM_X86(call ASM_X86_FUNC(SGD2FDF_D2Direct3D_CreateCompatibleBitmap));
+  ASM_X86(call ASM_X86_FUNC(SGD2FDF_D2Glide_CreateCompatibleBitmap));
   ASM_X86(add esp, 4)
 
   ASM_X86(pop edx);
@@ -93,13 +90,13 @@ __declspec(naked) void __cdecl InterceptionFunc_02() {
 
 } // namespace
 
-std::vector<mapi::GamePatch> Make_D2Direct3D_FixCornerTextPatch_1_03() {
+std::vector<mapi::GamePatch> Make_D2Glide_FixCornerTextPatch_1_02() {
   std::vector<mapi::GamePatch> patches;
 
   // Fix device context creation.
   mapi::GameAddress game_address_01 = mapi::GameAddress::FromOffset(
-      mapi::DefaultLibrary::kD2Direct3D,
-      0x673C
+      mapi::DefaultLibrary::kD2Glide,
+      0x37C9
   );
 
   patches.push_back(
@@ -107,14 +104,14 @@ std::vector<mapi::GamePatch> Make_D2Direct3D_FixCornerTextPatch_1_03() {
           std::move(game_address_01),
           mapi::BranchType::kCall,
           InterceptionFunc_01,
-          0x674E - 0x673C
+          0x37D7 - 0x37C9
       )
   );
 
   // Fix bitmap creation.
   mapi::GameAddress game_address_02 = mapi::GameAddress::FromOffset(
-      mapi::DefaultLibrary::kD2Direct3D,
-      0x6770
+      mapi::DefaultLibrary::kD2Glide,
+      0x37F9
   );
 
   patches.push_back(
@@ -122,7 +119,7 @@ std::vector<mapi::GamePatch> Make_D2Direct3D_FixCornerTextPatch_1_03() {
           std::move(game_address_02),
           mapi::BranchType::kCall,
           InterceptionFunc_02,
-          0x6783 - 0x6770
+          0x380C - 0x37F9
       )
   );
 

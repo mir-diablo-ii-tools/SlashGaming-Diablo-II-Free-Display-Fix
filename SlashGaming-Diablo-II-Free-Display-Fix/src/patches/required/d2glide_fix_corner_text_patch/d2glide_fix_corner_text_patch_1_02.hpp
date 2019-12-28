@@ -43,87 +43,17 @@
  *  work.
  */
 
-#include "d2ddraw_fix_corner_text_patch_1_03.hpp"
+#ifndef SGD2FDF_PATCHES_REQUIRED_D2GLIDE_FIX_CORNER_TEXT_PATCH_D2GLIDE_FIX_CORNER_TEXT_PATCH_1_02_HPP_
+#define SGD2FDF_PATCHES_REQUIRED_D2GLIDE_FIX_CORNER_TEXT_PATCH_D2GLIDE_FIX_CORNER_TEXT_PATCH_1_02_HPP_
 
-#include "../../../asm_x86_macro.h"
-#include "d2ddraw_fix_corner_text.hpp"
+#include <vector>
+
+#include <sgd2mapi.hpp>
 
 namespace sgd2fdf::patches {
-namespace {
 
-__declspec(naked) void __cdecl InterceptionFunc_01() {
-  ASM_X86(push ebp);
-  ASM_X86(mov ebp, esp);
+std::vector<mapi::GamePatch> Make_D2Glide_FixCornerTextPatch_1_02();
 
-  ASM_X86(push ecx);
-  ASM_X86(push edx);
+} // namespace SGD2FDF::patches
 
-  ASM_X86(call ASM_X86_FUNC(SGD2FDF_D2DDraw_CreateCompatibleDC));
-
-  ASM_X86(pop edx);
-  ASM_X86(pop ecx);
-
-  ASM_X86(leave);
-  ASM_X86(ret);
-}
-
-__declspec(naked) void __cdecl InterceptionFunc_02() {
-  ASM_X86(push ebp);
-  ASM_X86(mov ebp, esp);
-
-  // Original code.
-  ASM_X86(mov dword ptr [esp + 0x2C], edi);
-
-  ASM_X86(push ecx);
-  ASM_X86(push edx);
-
-  ASM_X86(push esi);
-  ASM_X86(call ASM_X86_FUNC(SGD2FDF_D2DDraw_CreateCompatibleBitmap));
-  ASM_X86(add esp, 4)
-
-  ASM_X86(pop edx);
-  ASM_X86(pop ecx);
-
-  ASM_X86(leave);
-  ASM_X86(ret);
-}
-
-} // namespace
-
-std::vector<mapi::GamePatch> Make_D2DDraw_FixCornerTextPatch_1_03() {
-  std::vector<mapi::GamePatch> patches;
-
-  // Fix device context creation.
-  mapi::GameAddress game_address_01 = mapi::GameAddress::FromOffset(
-      mapi::DefaultLibrary::kD2DDraw,
-      0x4107
-  );
-
-  patches.push_back(
-      mapi::GamePatch::MakeGameBranchPatch(
-          std::move(game_address_01),
-          mapi::BranchType::kCall,
-          InterceptionFunc_01,
-          0x4118 - 0x4107
-      )
-  );
-
-  // Fix bitmap creation.
-  mapi::GameAddress game_address_02 = mapi::GameAddress::FromOffset(
-      mapi::DefaultLibrary::kD2DDraw,
-      0x4144
-  );
-
-  patches.push_back(
-      mapi::GamePatch::MakeGameBranchPatch(
-          std::move(game_address_02),
-          mapi::BranchType::kCall,
-          InterceptionFunc_02,
-          0x4158 - 0x4144
-      )
-  );
-
-  return patches;
-}
-
-} // namespace sgd2fdf::patches
+#endif // SGD2FDF_PATCHES_REQUIRED_D2GLIDE_FIX_CORNER_TEXT_PATCH_D2GLIDE_FIX_CORNER_TEXT_PATCH_1_02_HPP_

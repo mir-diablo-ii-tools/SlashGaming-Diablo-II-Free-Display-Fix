@@ -55,7 +55,8 @@ std::vector<mapi::GamePatch> Make_D2Direct3D_FixDisplayModeColorBitsPatch() {
   d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
 
   switch (running_game_version_id) {
-    case d2::GameVersion::k1_00: {
+    case d2::GameVersion::k1_00:
+    case d2::GameVersion::k1_02: {
       return Make_D2Direct3D_FixDisplayModeColorBitsPatch_1_00();
     }
 
