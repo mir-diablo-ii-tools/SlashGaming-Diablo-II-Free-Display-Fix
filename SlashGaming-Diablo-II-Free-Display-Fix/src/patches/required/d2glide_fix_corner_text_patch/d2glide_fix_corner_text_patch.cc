@@ -69,7 +69,11 @@ std::vector<mapi::GamePatch> Make_D2Glide_FixCornerTextPatch() {
       return Make_D2Glide_FixCornerTextPatch_1_03();
     }
 
-    case d2::GameVersion::k1_04B_C: {
+    case d2::GameVersion::k1_04B_C:
+    case d2::GameVersion::k1_05:
+    case d2::GameVersion::k1_05B:
+    case d2::GameVersion::k1_06:
+    case d2::GameVersion::k1_06B: {
       return Make_D2Glide_FixCornerTextPatch_1_04B();
     }
 
