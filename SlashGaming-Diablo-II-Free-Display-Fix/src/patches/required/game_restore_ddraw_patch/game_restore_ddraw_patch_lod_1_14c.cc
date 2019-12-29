@@ -43,61 +43,56 @@
  *  work.
  */
 
-#include "required_patches.hpp"
+#include "game_restore_ddraw_patch_lod_1_14c.hpp"
 
-#include <algorithm>
-
-#include "d2ddraw_fix_corner_text_patch/d2ddraw_fix_corner_text_patch.hpp"
-#include "d2direct3d_fix_corner_text_patch/d2direct3d_fix_corner_text_patch.hpp"
-#include "d2direct3d_fix_display_mode_color_bits_patch/d2direct3d_fix_display_mode_color_bits_patch.hpp"
-#include "d2glide_fix_corner_text_patch/d2glide_fix_corner_text_patch.hpp"
-#include "game_restore_ddraw_patch/game_restore_ddraw_patch.hpp"
+#include "../../../asm_x86_macro.h"
+#include "game_restore_ddraw.hpp"
 
 namespace sgd2fdf::patches {
+namespace {
 
-std::vector<mapi::GamePatch> MakeRequiredPatches() {
-  std::vector<mapi::GamePatch> game_patches;
+__declspec(naked) void __cdecl InterceptionFunc_01() {
+  ASM_X86(push ebp);
+  ASM_X86(mov ebp, esp);
 
-  std::vector d2ddraw_fix_corner_text_patch =
-      Make_D2DDraw_FixCornerTextPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(d2ddraw_fix_corner_text_patch.begin()),
-      std::make_move_iterator(d2ddraw_fix_corner_text_patch.end())
+  ASM_X86(push eax);
+  ASM_X86(push ecx);
+  ASM_X86(push edx);
+
+  ASM_X86(lea eax, dword ptr [ebp + 20]);
+  ASM_X86(push eax);
+  ASM_X86(call ASM_X86_FUNC(SGD2FDF_Game_ReadRegistryVideoMode));
+  ASM_X86(add esp, 4);
+
+  ASM_X86(pop edx);
+  ASM_X86(pop ecx);
+  ASM_X86(pop eax);
+
+  ASM_X86(leave);
+  ASM_X86(ret);
+}
+
+} // namespace
+
+std::vector<mapi::GamePatch> Make_Game_RestoreDDrawPatch_LoD1_14C() {
+  std::vector<mapi::GamePatch> patches;
+
+  // Get video mode settings from the registry.
+  mapi::GameAddress game_address_01 = mapi::GameAddress::FromOffset(
+      "Game.exe",
+      0x1F10
   );
 
-  std::vector d2direct3d_fix_corner_text_patch =
-      Make_D2Direct3D_FixCornerTextPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(d2direct3d_fix_corner_text_patch.begin()),
-      std::make_move_iterator(d2direct3d_fix_corner_text_patch.end())
+  patches.push_back(
+      mapi::GamePatch::MakeGameBranchPatch(
+          std::move(game_address_01),
+          mapi::BranchType::kCall,
+          InterceptionFunc_01,
+          0x1F1E - 0x1F10
+      )
   );
 
-  std::vector d2direct3d_fix_display_mode_color_bits_patch =
-      Make_D2Direct3D_FixDisplayModeColorBitsPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(d2direct3d_fix_display_mode_color_bits_patch.begin()),
-      std::make_move_iterator(d2direct3d_fix_display_mode_color_bits_patch.end())
-  );
-
-  std::vector d2glide_fix_corner_text_patch =
-      Make_D2Glide_FixCornerTextPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(d2glide_fix_corner_text_patch.begin()),
-      std::make_move_iterator(d2glide_fix_corner_text_patch.end())
-  );
-
-  std::vector game_restore_ddraw_patch = Make_Game_RestoreDDrawPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(game_restore_ddraw_patch.begin()),
-      std::make_move_iterator(game_restore_ddraw_patch.end())
-  );
-
-  return game_patches;
+  return patches;
 }
 
 } // namespace sgd2fdf::patches

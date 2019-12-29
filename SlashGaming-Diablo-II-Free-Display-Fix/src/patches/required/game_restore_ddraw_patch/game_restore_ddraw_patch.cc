@@ -43,61 +43,48 @@
  *  work.
  */
 
-#include "required_patches.hpp"
+#include "game_restore_ddraw_patch.hpp"
 
-#include <algorithm>
-
-#include "d2ddraw_fix_corner_text_patch/d2ddraw_fix_corner_text_patch.hpp"
-#include "d2direct3d_fix_corner_text_patch/d2direct3d_fix_corner_text_patch.hpp"
-#include "d2direct3d_fix_display_mode_color_bits_patch/d2direct3d_fix_display_mode_color_bits_patch.hpp"
-#include "d2glide_fix_corner_text_patch/d2glide_fix_corner_text_patch.hpp"
-#include "game_restore_ddraw_patch/game_restore_ddraw_patch.hpp"
+#include "game_restore_ddraw_patch_lod_1_14c.hpp"
 
 namespace sgd2fdf::patches {
 
-std::vector<mapi::GamePatch> MakeRequiredPatches() {
-  std::vector<mapi::GamePatch> game_patches;
+std::vector<mapi::GamePatch> Make_Game_RestoreDDrawPatch() {
+  d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
 
-  std::vector d2ddraw_fix_corner_text_patch =
-      Make_D2DDraw_FixCornerTextPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(d2ddraw_fix_corner_text_patch.begin()),
-      std::make_move_iterator(d2ddraw_fix_corner_text_patch.end())
-  );
+  switch (running_game_version_id) {
+    /*case d2::GameVersion::kClassic1_14A: {
+      return Make_D2DDraw_FixCornerTextPatch_Classic1_14A();
+    }
 
-  std::vector d2direct3d_fix_corner_text_patch =
-      Make_D2Direct3D_FixCornerTextPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(d2direct3d_fix_corner_text_patch.begin()),
-      std::make_move_iterator(d2direct3d_fix_corner_text_patch.end())
-  );
+    case d2::GameVersion::kLod1_14A: {
+      return Make_D2DDraw_FixCornerTextPatch_LoD1_14A();
+    }
 
-  std::vector d2direct3d_fix_display_mode_color_bits_patch =
-      Make_D2Direct3D_FixDisplayModeColorBitsPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(d2direct3d_fix_display_mode_color_bits_patch.begin()),
-      std::make_move_iterator(d2direct3d_fix_display_mode_color_bits_patch.end())
-  );
+    case d2::GameVersion::kClassic1_14B: {
+      return Make_D2DDraw_FixCornerTextPatch_Classic1_14B();
+    }
 
-  std::vector d2glide_fix_corner_text_patch =
-      Make_D2Glide_FixCornerTextPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(d2glide_fix_corner_text_patch.begin()),
-      std::make_move_iterator(d2glide_fix_corner_text_patch.end())
-  );
+    case d2::GameVersion::kLod1_14B: {
+      return Make_D2DDraw_FixCornerTextPatch_LoD1_14B();
+    }
 
-  std::vector game_restore_ddraw_patch = Make_Game_RestoreDDrawPatch();
-  game_patches.insert(
-      game_patches.end(),
-      std::make_move_iterator(game_restore_ddraw_patch.begin()),
-      std::make_move_iterator(game_restore_ddraw_patch.end())
-  );
+    case d2::GameVersion::kClassic1_14C: {
+      return Make_D2DDraw_FixCornerTextPatch_Classic1_14C();
+    }*/
 
-  return game_patches;
+    case d2::GameVersion::kLod1_14C: {
+      return Make_Game_RestoreDDrawPatch_LoD1_14C();
+    }
+
+    /*case d2::GameVersion::kClassic1_14D: {
+      return Make_D2DDraw_FixCornerTextPatch_Classic1_14D();
+    }
+
+    case d2::GameVersion::kLod1_14D: {
+      return Make_D2DDraw_FixCornerTextPatch_LoD1_14D();
+    }*/
+  }
 }
 
 } // namespace sgd2fdf::patches
