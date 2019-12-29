@@ -43,39 +43,17 @@
  *  work.
  */
 
-#include "game_restore_ddraw_patch.hpp"
+#ifndef SGD2FDF_PATCHES_REQUIRED_GAME_RESTORE_DDRAW_PATCH_D2DDRAW_GAME_RESTORE_DDRAW_PATCH_LOD_1_14A_HPP_
+#define SGD2FDF_PATCHES_REQUIRED_GAME_RESTORE_DDRAW_PATCH_D2DDRAW_GAME_RESTORE_DDRAW_PATCH_LOD_1_14A_HPP_
 
-#include "game_restore_ddraw_patch_classic_1_14a.hpp"
-#include "game_restore_ddraw_patch_classic_1_14d.hpp"
-#include "game_restore_ddraw_patch_lod_1_14a.hpp"
-#include "game_restore_ddraw_patch_lod_1_14d.hpp"
+#include <vector>
+
+#include <sgd2mapi.hpp>
 
 namespace sgd2fdf::patches {
 
-std::vector<mapi::GamePatch> Make_Game_RestoreDDrawPatch() {
-  d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
+std::vector<mapi::GamePatch> Make_Game_RestoreDDrawPatch_LoD1_14A();
 
-  switch (running_game_version_id) {
-    case d2::GameVersion::kClassic1_14A:
-    case d2::GameVersion::kClassic1_14B:
-    case d2::GameVersion::kClassic1_14C: {
-      return Make_Game_RestoreDDrawPatch_Classic1_14A();
-    }
+} // namespace SGD2FDF::patches
 
-    case d2::GameVersion::kLod1_14A:
-    case d2::GameVersion::kLod1_14B:
-    case d2::GameVersion::kLod1_14C: {
-      return Make_Game_RestoreDDrawPatch_LoD1_14A();
-    }
-
-    case d2::GameVersion::kClassic1_14D: {
-      return Make_Game_RestoreDDrawPatch_Classic1_14D();
-    }
-
-    case d2::GameVersion::kLod1_14D: {
-      return Make_Game_RestoreDDrawPatch_LoD1_14D();
-    }
-  }
-}
-
-} // namespace sgd2fdf::patches
+#endif // SGD2FDF_PATCHES_REQUIRED_GAME_RESTORE_DDRAW_PATCH_D2DDRAW_GAME_RESTORE_DDRAW_PATCH_LOD_1_14A_HPP_

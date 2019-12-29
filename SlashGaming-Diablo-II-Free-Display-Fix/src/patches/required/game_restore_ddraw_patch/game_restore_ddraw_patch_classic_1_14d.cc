@@ -43,7 +43,7 @@
  *  work.
  */
 
-#include "game_restore_ddraw_patch_lod_1_14c.hpp"
+#include "game_restore_ddraw_patch_classic_1_14d.hpp"
 
 #include "../../../asm_x86_macro.h"
 #include "game_restore_ddraw.hpp"
@@ -52,20 +52,17 @@ namespace sgd2fdf::patches {
 namespace {
 
 __declspec(naked) void __cdecl InterceptionFunc_01() {
+  ASM_X86(lea ecx, dword ptr [ebp - 1244]);
+
   ASM_X86(push ebp);
   ASM_X86(mov ebp, esp);
 
   ASM_X86(push eax);
-  ASM_X86(push ecx);
-  ASM_X86(push edx);
 
-  ASM_X86(lea eax, dword ptr [ebp + 20]);
-  ASM_X86(push eax);
+  ASM_X86(push ecx);
   ASM_X86(call ASM_X86_FUNC(SGD2FDF_Game_ReadRegistryVideoMode));
   ASM_X86(add esp, 4);
 
-  ASM_X86(pop edx);
-  ASM_X86(pop ecx);
   ASM_X86(pop eax);
 
   ASM_X86(leave);
@@ -74,13 +71,13 @@ __declspec(naked) void __cdecl InterceptionFunc_01() {
 
 } // namespace
 
-std::vector<mapi::GamePatch> Make_Game_RestoreDDrawPatch_LoD1_14C() {
+std::vector<mapi::GamePatch> Make_Game_RestoreDDrawPatch_Classic1_14D() {
   std::vector<mapi::GamePatch> patches;
 
   // Get video mode settings from the registry.
   mapi::GameAddress game_address_01 = mapi::GameAddress::FromOffset(
       "Game.exe",
-      0x1F10
+      0x63D1
   );
 
   patches.push_back(
@@ -88,7 +85,7 @@ std::vector<mapi::GamePatch> Make_Game_RestoreDDrawPatch_LoD1_14C() {
           std::move(game_address_01),
           mapi::BranchType::kCall,
           InterceptionFunc_01,
-          0x1F1E - 0x1F10
+          0x63E3 - 0x63D1
       )
   );
 

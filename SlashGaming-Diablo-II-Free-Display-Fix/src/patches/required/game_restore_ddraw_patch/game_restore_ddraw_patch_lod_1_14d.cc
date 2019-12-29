@@ -43,39 +43,53 @@
  *  work.
  */
 
-#include "game_restore_ddraw_patch.hpp"
-
-#include "game_restore_ddraw_patch_classic_1_14a.hpp"
-#include "game_restore_ddraw_patch_classic_1_14d.hpp"
-#include "game_restore_ddraw_patch_lod_1_14a.hpp"
 #include "game_restore_ddraw_patch_lod_1_14d.hpp"
 
+#include "../../../asm_x86_macro.h"
+#include "game_restore_ddraw.hpp"
+
 namespace sgd2fdf::patches {
+namespace {
 
-std::vector<mapi::GamePatch> Make_Game_RestoreDDrawPatch() {
-  d2::GameVersion running_game_version_id = d2::GetRunningGameVersionId();
+__declspec(naked) void __cdecl InterceptionFunc_01() {
+  ASM_X86(lea ecx, dword ptr [ebp - 1240]);
 
-  switch (running_game_version_id) {
-    case d2::GameVersion::kClassic1_14A:
-    case d2::GameVersion::kClassic1_14B:
-    case d2::GameVersion::kClassic1_14C: {
-      return Make_Game_RestoreDDrawPatch_Classic1_14A();
-    }
+  ASM_X86(push ebp);
+  ASM_X86(mov ebp, esp);
 
-    case d2::GameVersion::kLod1_14A:
-    case d2::GameVersion::kLod1_14B:
-    case d2::GameVersion::kLod1_14C: {
-      return Make_Game_RestoreDDrawPatch_LoD1_14A();
-    }
+  ASM_X86(push eax);
 
-    case d2::GameVersion::kClassic1_14D: {
-      return Make_Game_RestoreDDrawPatch_Classic1_14D();
-    }
+  ASM_X86(push ecx);
+  ASM_X86(call ASM_X86_FUNC(SGD2FDF_Game_ReadRegistryVideoMode));
+  ASM_X86(add esp, 4);
 
-    case d2::GameVersion::kLod1_14D: {
-      return Make_Game_RestoreDDrawPatch_LoD1_14D();
-    }
-  }
+  ASM_X86(pop eax);
+
+  ASM_X86(leave);
+  ASM_X86(ret);
+}
+
+} // namespace
+
+std::vector<mapi::GamePatch> Make_Game_RestoreDDrawPatch_LoD1_14D() {
+  std::vector<mapi::GamePatch> patches;
+
+  // Get video mode settings from the registry.
+  mapi::GameAddress game_address_01 = mapi::GameAddress::FromOffset(
+      "Game.exe",
+      0x659D
+  );
+
+  patches.push_back(
+      mapi::GamePatch::MakeGameBranchPatch(
+          std::move(game_address_01),
+          mapi::BranchType::kCall,
+          InterceptionFunc_01,
+          0x65AF - 0x659D
+      )
+  );
+
+  return patches;
 }
 
 } // namespace sgd2fdf::patches
