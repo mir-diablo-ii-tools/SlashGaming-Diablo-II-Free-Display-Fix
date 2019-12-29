@@ -43,17 +43,56 @@
  *  work.
  */
 
-#ifndef SGD2FDF_PATCHES_REQUIRED_GAME_RESTORE_DDRAW_PATCH_D2DDRAW_GAME_RESTORE_DDRAW_PATCH_LOD_1_14C_HPP_
-#define SGD2FDF_PATCHES_REQUIRED_GAME_RESTORE_DDRAW_PATCH_D2DDRAW_GAME_RESTORE_DDRAW_PATCH_LOD_1_14C_HPP_
+#include "game_restore_ddraw_patch_lod_1_14a.hpp"
 
-#include <vector>
-
-#include <sgd2mapi.hpp>
+#include "../../../asm_x86_macro.h"
+#include "game_restore_ddraw.hpp"
 
 namespace sgd2fdf::patches {
+namespace {
 
-std::vector<mapi::GamePatch> Make_Game_RestoreDDrawPatch_LoD1_14C();
+__declspec(naked) void __cdecl InterceptionFunc_01() {
+  ASM_X86(push ebp);
+  ASM_X86(mov ebp, esp);
 
-} // namespace SGD2FDF::patches
+  ASM_X86(push eax);
+  ASM_X86(push ecx);
+  ASM_X86(push edx);
 
-#endif // SGD2FDF_PATCHES_REQUIRED_GAME_RESTORE_DDRAW_PATCH_D2DDRAW_GAME_RESTORE_DDRAW_PATCH_LOD_1_14C_HPP_
+  ASM_X86(lea eax, dword ptr [ebp + 16]);
+  ASM_X86(push eax);
+  ASM_X86(call ASM_X86_FUNC(SGD2FDF_Game_ReadRegistryVideoMode));
+  ASM_X86(add esp, 4);
+
+  ASM_X86(pop edx);
+  ASM_X86(pop ecx);
+  ASM_X86(pop eax);
+
+  ASM_X86(leave);
+  ASM_X86(ret);
+}
+
+} // namespace
+
+std::vector<mapi::GamePatch> Make_Game_RestoreDDrawPatch_LoD1_14A() {
+  std::vector<mapi::GamePatch> patches;
+
+  // Get video mode settings from the registry.
+  mapi::GameAddress game_address_01 = mapi::GameAddress::FromOffset(
+      "Game.exe",
+      0x1F10
+  );
+
+  patches.push_back(
+      mapi::GamePatch::MakeGameBranchPatch(
+          std::move(game_address_01),
+          mapi::BranchType::kCall,
+          InterceptionFunc_01,
+          0x1F1E - 0x1F10
+      )
+  );
+
+  return patches;
+}
+
+} // namespace sgd2fdf::patches
