@@ -119,7 +119,8 @@ std::vector<mapi::GamePatch> Make_D2Direct3D_FixCornerTextPatch() {
       return Make_D2Direct3D_FixCornerTextPatch_1_13D();
     }
 
-    case d2::GameVersion::kLod1_14A: {
+    case d2::GameVersion::kLod1_14A:
+    case d2::GameVersion::kLod1_14B: {
       // This version does not need these patches.
       return {};
     }

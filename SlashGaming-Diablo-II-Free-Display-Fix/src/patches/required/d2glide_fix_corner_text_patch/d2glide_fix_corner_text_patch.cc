@@ -131,6 +131,11 @@ std::vector<mapi::GamePatch> Make_D2Glide_FixCornerTextPatch() {
     case d2::GameVersion::kLod1_14A: {
       return Make_D2Glide_FixCornerTextPatch_LoD1_14A();
     }
+
+    case d2::GameVersion::kLod1_14B: {
+      // This version does not need these patches.
+      return {};
+    }
   }
 }
 
