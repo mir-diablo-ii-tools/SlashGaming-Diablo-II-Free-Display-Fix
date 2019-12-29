@@ -57,6 +57,9 @@
 #include "d2ddraw_fix_corner_text_patch_1_13c.hpp"
 #include "d2ddraw_fix_corner_text_patch_1_13d.hpp"
 #include "d2ddraw_fix_corner_text_patch_classic_1_14a.hpp"
+#include "d2ddraw_fix_corner_text_patch_classic_1_14b.hpp"
+#include "d2ddraw_fix_corner_text_patch_classic_1_14c.hpp"
+#include "d2ddraw_fix_corner_text_patch_classic_1_14d.hpp"
 #include "d2ddraw_fix_corner_text_patch_lod_1_14a.hpp"
 #include "d2ddraw_fix_corner_text_patch_lod_1_14b.hpp"
 #include "d2ddraw_fix_corner_text_patch_lod_1_14c.hpp"
@@ -133,12 +136,24 @@ std::vector<mapi::GamePatch> Make_D2DDraw_FixCornerTextPatch() {
       return Make_D2DDraw_FixCornerTextPatch_LoD1_14A();
     }
 
+    case d2::GameVersion::kClassic1_14B: {
+      return Make_D2DDraw_FixCornerTextPatch_Classic1_14B();
+    }
+
     case d2::GameVersion::kLod1_14B: {
       return Make_D2DDraw_FixCornerTextPatch_LoD1_14B();
     }
 
+    case d2::GameVersion::kClassic1_14C: {
+      return Make_D2DDraw_FixCornerTextPatch_Classic1_14C();
+    }
+
     case d2::GameVersion::kLod1_14C: {
       return Make_D2DDraw_FixCornerTextPatch_LoD1_14C();
+    }
+
+    case d2::GameVersion::kClassic1_14D: {
+      return Make_D2DDraw_FixCornerTextPatch_Classic1_14D();
     }
 
     case d2::GameVersion::kLod1_14D: {
