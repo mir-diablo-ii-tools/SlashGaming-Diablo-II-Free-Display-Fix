@@ -44,3 +44,7 @@ CMakeCache.txt
 .vs/
 Debug/
 Release/
+
+*.7z
+*.rar
+*.zip
