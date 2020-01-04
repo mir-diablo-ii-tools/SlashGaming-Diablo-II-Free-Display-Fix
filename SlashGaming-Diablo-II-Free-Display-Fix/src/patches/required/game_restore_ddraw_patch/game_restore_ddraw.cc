@@ -135,9 +135,9 @@ void SetVideoModeFlags(ConfigOptions& config_options, DWORD reg_video_mode) {
 template <typename T>
 bool IsVideoModeCmdLineSet_Impl(const T& config_options) {
   return config_options.is_use_direct3d_else_ddraw
-      && config_options.is_use_unknown_video_mode
-      && config_options.is_use_glide
-      && config_options.is_use_gdi;
+      || config_options.is_use_unknown_video_mode
+      || config_options.is_use_glide
+      || config_options.is_use_gdi;
 }
 
 bool IsVideoModeCmdLineSet(const ConfigOptions& config_options) {
@@ -199,6 +199,7 @@ void __cdecl SGD2FDF_Game_ReadRegistryVideoMode(
   // Get the video mode value from the registry.
   DWORD reg_video_mode = 0;
   DWORD data_type = 0;
+  DWORD data_size = sizeof(reg_video_mode);
 
   LSTATUS query_key_status = RegQueryValueExW(
       key_handle,
@@ -206,7 +207,7 @@ void __cdecl SGD2FDF_Game_ReadRegistryVideoMode(
       nullptr,
       &data_type,
       reinterpret_cast<LPBYTE>(&reg_video_mode),
-      nullptr
+      &data_size
   );
 
   // Set the video flags.
