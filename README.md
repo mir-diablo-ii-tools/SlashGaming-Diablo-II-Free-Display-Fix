@@ -4,6 +4,7 @@ A universal fix of display related issues and backport of features from 1.14 for
 ## Features
 - Removes the symbol cycling issue when changing resolutions for the DirectDraw, Direct3D, and Glide video modes for newer Windows versions and graphics cards. Game startup should now be much quicker.
 - Fixes crash when starting Direct3D in video mode for newer Windows versions and graphics cards.
+- DirectDraw can now be used in all versions above 1.13C, and the video mode can be selected by the appropriate entry in the registry.
 
 ## How to Use
 Use a program to inject the DLL file into Game.exe.
