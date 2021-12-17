@@ -1,6 +1,6 @@
 [submodule "third_party/SlashGaming-Diablo-II-API-1998"]
-	path = third_party/SlashGaming-Diablo-II-API-1998
+	path = third_party/SGD2MAPI98
 	url = https://github.com/mir-diablo-ii-tools/SlashGaming-Diablo-II-API-1998
 [submodule "third_party/MirD-Common-C"]
-	path = third_party/MirD-Common-C
+	path = third_party/MDC
 	url = https://github.com/IAmTrial/MirD-Common-C
