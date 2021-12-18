@@ -163,7 +163,6 @@ set(SOURCE_FILES
     "include/dllexport_define.inc"
     "include/dllexport_undefine.inc"
     "include/license.h"
-    "include/sgd2modl_exports.h"
 
     # Resource files
     "resource/resource.rc"
@@ -171,7 +170,6 @@ set(SOURCE_FILES
     # Source files
     "src/dll_main.c"
     "src/license.c"
-    "src/sgd2modl_exports.c"
 
     "${HELPER_FILES}"
     "${PATCH_FILES}"
