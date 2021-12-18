@@ -13,6 +13,60 @@
 *.obj
 *.so
 
+# CMake
+out/
+_deps/
+CMakeSettings.json
+*.dll.embed.manifest
+*.dll.intermediate.manifest
+*.exe.embed.manifest
+*.exe.intermediate.manifest
+*.lastbuildstate
+*.vcxprojResolveAssemblyReference.cache
+*_manifest.rc
+
+BuildLog.htm
+CMakeASM_NASMCompiler.cmake
+CMakeCCompiler.cmake
+CMakeCCompilerId.c
+CMakeCXXCompiler.cmake
+CMakeCXXCompilerId.cpp
+CMakeDetermineCompilerABI_C.bin
+CMakeDetermineCompilerABI_CXX.bin
+CMakeDirectoryInformation.cmake
+CMakeRCCompiler.cmake
+CMakeSystem.cmake
+CMakeCache.txt
+DependInfo.cmake
+INSTALL_force.rule
+Makefile.cmake
+RC.includecache
+TargetDirectories.txt
+VCTargetsPath.txt
+
+build.make
+cmake.check_cache
+cmake_clean.cmake
+cmake_install.cmake
+compiler_depend.make
+compiler_depend.ts
+depend.internal
+depend.make
+feature_tests.bin
+feature_tests.cxx
+flags.make
+generate.stamp
+generate.stamp.depend
+generate.stamp.list
+generate.stamp.rule
+link.txt
+linklibs.rsp
+nasm.props
+mt.dep
+objects1.rsp
+progress.make
+progress.marks
+
 # Debug / Intermediate Files
 *.ipch
 *.idb
@@ -37,6 +91,12 @@
 # Thumbnails
 *.DS_STORE
 *.db
+
+# MinGW Makefiles
+*.cpp.obj.d
+
+Makefile
+Makefile2
 
 # Visual Studio 2005 Solution / Project Files
 *.vcproj
