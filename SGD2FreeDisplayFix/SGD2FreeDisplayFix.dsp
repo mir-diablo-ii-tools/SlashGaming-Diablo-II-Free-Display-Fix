@@ -105,10 +105,6 @@ SOURCE=.\include\dllexport_undefine.inc
 
 SOURCE=.\include\license.h
 # End Source File
-# Begin Source File
-
-SOURCE=.\include\sgd2modl_exports.h
-# End Source File
 # End Group
 # Begin Group "resource"
 
@@ -793,10 +789,6 @@ SOURCE=.\src\dll_main.c
 # Begin Source File
 
 SOURCE=.\src\license.c
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\sgd2modl_exports.c
 # End Source File
 # End Group
 # End Group
