@@ -3,6 +3,18 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
+Project: "MDC"=.\third_party\MDC\MDC\MDC.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "SGD2FreeDisplayFix"=.\SGD2FreeDisplayFix\SGD2FreeDisplayFix.dsp - Package Owner=<4>
 
 Package=<5>
@@ -11,6 +23,27 @@ Package=<5>
 
 Package=<4>
 {{{
+    Begin Project Dependency
+    Project_Dep_Name MDC
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name SGD2MAPIc
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "SGD2MAPIc"=.\third_party\SGD2MAPI98\SGD2MAPIc\SGD2MAPIc.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name MDC
+    End Project Dependency
 }}}
 
 ###############################################################################
