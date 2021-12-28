@@ -48,7 +48,7 @@
 
 #include <stddef.h>
 
-#include <sgd2mapi.h>
+#include <sgd2mapi98.h>
 
 enum {
   D2Glide_FixCornerTextPatch_1_00_kPatchesCount = 2
