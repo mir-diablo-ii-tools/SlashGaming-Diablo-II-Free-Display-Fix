@@ -45,7 +45,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "SGD2FREEDISPLAYFIX_EXPORTS" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /I "../third_party/MDC/MDC/include" /I "../third_party/SGD2MAPI98/SGD2MAPIc/include" /D "WIN32" /D "NDEBUG" /D "_UNICODE" /D "UNICODE" /D "SGD2FDF_DLLEXPORT" /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "../third_party/MDC/MDCc/include" /I "../third_party/SGD2MAPI98/SGD2MAPIc/include" /D "WIN32" /D "NDEBUG" /D "_UNICODE" /D "UNICODE" /D "SGD2FDF_DLLEXPORT" /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
@@ -56,7 +56,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
-# ADD LINK32 libunicows.lib libMDCc.lib libSGD2MAPIc.lib shlwapi.lib version.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386 /out:"Release/SGD2FreeDisplayFix.static.dll" /libpath:"../third_party/MDC/MDC/Release" /libpath:"../third_party/SGD2MAPI98/SGD2MAPIc/Release"
+# ADD LINK32 libunicows.lib libMDCc.lib libSGD2MAPIc.lib shlwapi.lib version.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386 /out:"Release/SGD2FreeDisplayFix.static.dll" /libpath:"../third_party/MDC/MDCc/Release" /libpath:"../third_party/SGD2MAPI98/SGD2MAPIc/Release"
 
 !ELSEIF  "$(CFG)" == "SGD2FreeDisplayFix - Win32 Debug"
 
@@ -72,7 +72,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "SGD2FREEDISPLAYFIX_EXPORTS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "../third_party/MDC/MDC/include" /I "../third_party/SGD2MAPI98/SGD2MAPIc/include" /D "WIN32" /D "_DEBUG" /D "_UNICODE" /D "UNICODE" /D "SGD2FDF_DLLEXPORT" /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "../third_party/MDC/MDCc/include" /I "../third_party/SGD2MAPI98/SGD2MAPIc/include" /D "WIN32" /D "_DEBUG" /D "_UNICODE" /D "UNICODE" /D "SGD2FDF_DLLEXPORT" /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
@@ -83,7 +83,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo /o"Debug/SGD2FreeDisplayFixD.bsc"
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 libunicows.lib libMDCcD.lib libSGD2MAPIcD.lib shlwapi.lib version.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"Debug/SGD2FreeDisplayFixD.static.dll" /pdbtype:sept /libpath:"../third_party/MDC/MDC/Debug" /libpath:"../third_party/SGD2MAPI98/SGD2MAPIc/Debug"
+# ADD LINK32 libunicows.lib libMDCcD.lib libSGD2MAPIcD.lib shlwapi.lib version.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"Debug/SGD2FreeDisplayFixD.static.dll" /pdbtype:sept /libpath:"../third_party/MDC/MDCc/Debug" /libpath:"../third_party/SGD2MAPI98/SGD2MAPIc/Debug"
 
 !ELSEIF  "$(CFG)" == "SGD2FreeDisplayFix - Win32 Release Dll"
 
@@ -99,9 +99,9 @@ LINK32=link.exe
 # PROP Intermediate_Dir "ReleaseDll"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MD /W3 /GX /O2 /I "../third_party/MDC/MDC/include" /I "../third_party/SGD2MAPI98/SGD2MAPIc/include" /D "WIN32" /D "NDEBUG" /D "_UNICODE" /D "UNICODE" /D "SGD2FDF_DLLEXPORT" /FD /c
+# ADD BASE CPP /nologo /MD /W3 /GX /O2 /I "../third_party/MDC/MDCc/include" /I "../third_party/SGD2MAPI98/SGD2MAPIc/include" /D "WIN32" /D "NDEBUG" /D "_UNICODE" /D "UNICODE" /D "SGD2FDF_DLLEXPORT" /FD /c
 # SUBTRACT BASE CPP /YX
-# ADD CPP /nologo /MD /W3 /GX /O2 /I "../third_party/MDC/MDC/include" /I "../third_party/SGD2MAPI98/SGD2MAPIc/include" /D "WIN32" /D "NDEBUG" /D "_UNICODE" /D "UNICODE" /D "SGD2FDF_DLLEXPORT" /D "SGD2MAPIC_DLLIMPORT" /D "MDC_DLLIMPORT" /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "../third_party/MDC/MDCc/include" /I "../third_party/SGD2MAPI98/SGD2MAPIc/include" /D "WIN32" /D "NDEBUG" /D "_UNICODE" /D "UNICODE" /D "SGD2FDF_DLLEXPORT" /D "SGD2MAPI_C_DLLIMPORT" /D "MDC_C_DLLIMPORT" /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
@@ -111,8 +111,8 @@ BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
-# ADD BASE LINK32 libunicows.lib libMDCc.lib libSGD2MAPIc.lib shlwapi.lib version.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386 /out:"Release/SGD2FreeDisplayFix.static.dll" /libpath:"../third_party/MDC/MDC/Release" /libpath:"../third_party/SGD2MAPI98/SGD2MAPIc/Release"
-# ADD LINK32 libunicows.lib MDCc.lib SGD2MAPIc.lib shlwapi.lib version.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386 /libpath:"../third_party/MDC/MDC/ReleaseDll" /libpath:"../third_party/SGD2MAPI98/SGD2MAPIc/ReleaseDll"
+# ADD BASE LINK32 libunicows.lib libMDCc.lib libSGD2MAPIc.lib shlwapi.lib version.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386 /out:"Release/SGD2FreeDisplayFix.static.dll" /libpath:"../third_party/MDC/MDCc/Release" /libpath:"../third_party/SGD2MAPI98/SGD2MAPIc/Release"
+# ADD LINK32 libunicows.lib MDCc.lib SGD2MAPIc.lib shlwapi.lib version.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386 /libpath:"../third_party/MDC/MDCc/ReleaseDll" /libpath:"../third_party/SGD2MAPI98/SGD2MAPIc/ReleaseDll"
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "SGD2FreeDisplayFix - Win32 Debug Dll"
@@ -129,9 +129,9 @@ LINK32=link.exe
 # PROP Intermediate_Dir "DebugDll"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "../third_party/MDC/MDC/include" /I "../third_party/SGD2MAPI98/SGD2MAPIc/include" /D "WIN32" /D "_DEBUG" /D "_UNICODE" /D "UNICODE" /D "SGD2FDF_DLLEXPORT" /FD /GZ /c
+# ADD BASE CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "../third_party/MDC/MDCc/include" /I "../third_party/SGD2MAPI98/SGD2MAPIc/include" /D "WIN32" /D "_DEBUG" /D "_UNICODE" /D "UNICODE" /D "SGD2FDF_DLLEXPORT" /FD /GZ /c
 # SUBTRACT BASE CPP /YX
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "../third_party/MDC/MDC/include" /I "../third_party/SGD2MAPI98/SGD2MAPIc/include" /D "WIN32" /D "_DEBUG" /D "_UNICODE" /D "UNICODE" /D "SGD2FDF_DLLEXPORT" /D "SGD2MAPIC_DLLIMPORT" /D "MDC_DLLIMPORT" /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "../third_party/MDC/MDCc/include" /I "../third_party/SGD2MAPI98/SGD2MAPIc/include" /D "WIN32" /D "_DEBUG" /D "_UNICODE" /D "UNICODE" /D "SGD2FDF_DLLEXPORT" /D "SGD2MAPI_C_DLLIMPORT" /D "MDC_C_DLLIMPORT" /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
@@ -141,8 +141,8 @@ BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo /o"DebugDll/SGD2FreeDisplayFixD.bsc"
 LINK32=link.exe
-# ADD BASE LINK32 libunicows.lib libMDCcD.lib libSGD2MAPIcD.lib shlwapi.lib version.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"Debug/SGD2FreeDisplayFix.static.dll" /pdbtype:sept /libpath:"../third_party/MDC/MDC/Debug" /libpath:"../third_party/SGD2MAPI98/SGD2MAPIc/Debug"
-# ADD LINK32 libunicows.lib MDCcD.lib SGD2MAPIcD.lib shlwapi.lib version.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"DebugDll/SGD2FreeDisplayFixD.dll" /pdbtype:sept /libpath:"../third_party/MDC/MDC/DebugDll" /libpath:"../third_party/SGD2MAPI98/SGD2MAPIc/DebugDll"
+# ADD BASE LINK32 libunicows.lib libMDCcD.lib libSGD2MAPIcD.lib shlwapi.lib version.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"Debug/SGD2FreeDisplayFix.static.dll" /pdbtype:sept /libpath:"../third_party/MDC/MDCc/Debug" /libpath:"../third_party/SGD2MAPI98/SGD2MAPIc/Debug"
+# ADD LINK32 libunicows.lib MDCcD.lib SGD2MAPIcD.lib shlwapi.lib version.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"DebugDll/SGD2FreeDisplayFixD.dll" /pdbtype:sept /libpath:"../third_party/MDC/MDCc/DebugDll" /libpath:"../third_party/SGD2MAPI98/SGD2MAPIc/DebugDll"
 
 !ENDIF 
 

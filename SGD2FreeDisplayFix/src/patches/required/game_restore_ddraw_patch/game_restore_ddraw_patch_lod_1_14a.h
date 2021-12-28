@@ -48,7 +48,7 @@
 
 #include <stddef.h>
 
-#include <sgd2mapi.h>
+#include <sgd2mapi98.h>
 
 enum {
   Game_RestoreDDrawPatch_Lod1_14A_kPatchesCount = 1

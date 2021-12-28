@@ -48,7 +48,7 @@
 
 #include <stddef.h>
 
-#include <sgd2mapi.h>
+#include <sgd2mapi98.h>
 
 struct PatchAddressAndSize {
   struct Mapi_GameAddress address;

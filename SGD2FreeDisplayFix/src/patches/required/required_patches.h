@@ -46,7 +46,7 @@
 #ifndef SGD2FDF_PATCHES_REQUIRED_REQUIRED_PATCHES_H_
 #define SGD2FDF_PATCHES_REQUIRED_REQUIRED_PATCHES_H_
 
-#include <sgd2mapi.h>
+#include <sgd2mapi98.h>
 #include "d2ddraw_fix_corner_text_patch/d2ddraw_fix_corner_text_patch.h"
 #include "d2direct3d_fix_corner_text_patch/d2direct3d_fix_corner_text_patch.h"
 #include "d2direct3d_fix_display_mode_color_bits_patch/d2direct3d_fix_display_mode_color_bits_patch.h"
